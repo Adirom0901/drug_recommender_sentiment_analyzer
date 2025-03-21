@@ -13,10 +13,16 @@ nltk.download('wordnet')
 import streamlit as st
 import pandas as pd
 from deep_translator import GoogleTranslator
+import requests
+import io
 
+dataset_id = "1gt5awJUv00Avu6HKgJI_ERpn8i4rqTgi"
+url_dataset = f"https://drive.google.com/uc?id={dataset_id}"
+response = requests.get(url_dataset)
+response.raise_for_status()  # Raise an error if the download fails
 
-
-whole_dataset_pkl = pickle.load(open("C:/Users/aditya namdeo/Downloads/drug_recomm_Sent_web_code/drug_Datase_all.pkl","rb"))  # Ensure it has a 'condition' column
+# Load pickle file from bytes
+whole_dataset_pkl = pickle.load(io.BytesIO(response.content))  # Ensure it has a 'condition' column
 whole_dataset = pd.DataFrame(whole_dataset_pkl)
 condition_list = whole_dataset.condition.unique().tolist()
 def recommend_drugs_for_condition(condition, df=whole_dataset, top_n=5):
@@ -34,10 +40,17 @@ def recommend_drugs_for_condition(condition, df=whole_dataset, top_n=5):
     recommended = recommended['drugName'].tolist()
 
     return recommended
+model_id = "1e_iRKYcU5SmF-MmzV67ByqkhHNhd_tCj"
+url_model =  f"https://drive.google.com/uc?id={dataset_id}"
+response_model = requests.get(url_model)
+response_model.raise_for_status()  # Raise an error if the download fails
+loaded_model = pickle.load(io.BytesIO(response_model.content))
 
-loaded_model = pickle.load(open("C:/Users/aditya namdeo/Downloads/drug_recomm_Sent_web_code/final_drug_sentiment_model.sav","rb"))
-
-words =pickle.load(open("C:/Users/aditya namdeo/Downloads/drug_recomm_Sent_web_code/glove_50d_embedding.pkl","rb"))
+word_id = "12wjuUzZupaQC9Ndbqazu3rIbqS82kcpn"
+url_word= f"https://drive.google.com/uc?id={word_id}"
+response_word = requests.get(url_word)
+response_word.raise_for_status()  # Raise an error if the download fails
+words =pickle.load(io.BytesIO(response_word.content))
 
 def sentiment_prediction(review):
     
