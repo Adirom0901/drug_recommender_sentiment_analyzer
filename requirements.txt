@@ -4,6 +4,6 @@ nltk
 streamlit
 pandas
 deep-translator
-
+tensorflow
 
 
