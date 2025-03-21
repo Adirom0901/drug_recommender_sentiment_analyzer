@@ -16,6 +16,15 @@ from deep_translator import GoogleTranslator
 import requests
 import io
 import gdown
+from nltk.data import find
+
+@st.cache_data  # Cache the function to prevent rechecking
+def ensure_wordnet():
+    try:
+        find("corpora/wordnet.zip")  # Check if wordnet is already downloaded
+    except LookupError:
+        nltk.download("wordnet") 
+        
 dataset_id = "1gt5awJUv00Avu6HKgJI_ERpn8i4rqTgi"
 url_dataset = f"https://drive.google.com/uc?id={dataset_id}"
 response = requests.get(url_dataset)
