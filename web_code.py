@@ -48,12 +48,21 @@ loaded_model = pickle.load(io.BytesIO(response_model.content))
 
 word_id = "12wjuUzZupaQC9Ndbqazu3rIbqS82kcpn"
 url_word= f"https://drive.google.com/uc?id={word_id}"
-output_file = "glove.pkl"
-gdown.download(url_word, output_file, quiet=False)
+@st.cache_data  # Cache the downloaded file
+def download_glove():
+    url_word = f"https://drive.google.com/uc?id={word_id}"
+    gdown.download(url_word, output_file, quiet=False)
+    return output_file  # Return file path
 
-# Load the Pickle file correctly
-with open(output_file, "rb") as f:
-    words = pickle.load(f)
+@st.cache_data  # Cache the loaded embeddings
+def load_glove():
+    with open(download_glove(), "rb") as f:
+        glove_data = pickle.load(f)
+    return glove_data
+
+# Load GloVe embeddings
+words = load_glove()
+
 
 def sentiment_prediction(review):
     
