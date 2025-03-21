@@ -48,6 +48,7 @@ loaded_model = pickle.load(io.BytesIO(response_model.content))
 
 word_id = "12wjuUzZupaQC9Ndbqazu3rIbqS82kcpn"
 url_word= f"https://drive.google.com/uc?id={word_id}"
+output_file = "glove.pkl"
 @st.cache_data  # Cache the downloaded file
 def download_glove():
     url_word = f"https://drive.google.com/uc?id={word_id}"
