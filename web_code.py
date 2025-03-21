@@ -41,7 +41,7 @@ def recommend_drugs_for_condition(condition, df=whole_dataset, top_n=5):
 
     return recommended
 model_id = "1e_iRKYcU5SmF-MmzV67ByqkhHNhd_tCj"
-url_model =  f"https://drive.google.com/uc?id={dataset_id}"
+url_model =  f"https://drive.google.com/uc?id={model_id}"
 response_model = requests.get(url_model)
 response_model.raise_for_status()  # Raise an error if the download fails
 loaded_model = pickle.load(io.BytesIO(response_model.content))
