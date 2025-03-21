@@ -15,7 +15,7 @@ import pandas as pd
 from deep_translator import GoogleTranslator
 import requests
 import io
-
+import gdown
 dataset_id = "1gt5awJUv00Avu6HKgJI_ERpn8i4rqTgi"
 url_dataset = f"https://drive.google.com/uc?id={dataset_id}"
 response = requests.get(url_dataset)
@@ -48,14 +48,12 @@ loaded_model = pickle.load(io.BytesIO(response_model.content))
 
 word_id = "12wjuUzZupaQC9Ndbqazu3rIbqS82kcpn"
 url_word= f"https://drive.google.com/uc?id={word_id}"
-session = requests.Session()
+output_file = "glove.pkl"
+gdown.download(url_word, output_file, quiet=False)
 
-# Get the response (handle Google Drive's security mechanism)
-response = session.get(url_word, stream=True)
-response.raise_for_status()
-
-# Load pickle file from bytes
-words = pickle.load(io.BytesIO(response.content))
+# Load the Pickle file correctly
+with open(output_file, "rb") as f:
+    words = pickle.load(f)
 
 def sentiment_prediction(review):
     
