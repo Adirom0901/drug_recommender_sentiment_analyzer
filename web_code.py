@@ -48,9 +48,14 @@ loaded_model = pickle.load(io.BytesIO(response_model.content))
 
 word_id = "12wjuUzZupaQC9Ndbqazu3rIbqS82kcpn"
 url_word= f"https://drive.google.com/uc?id={word_id}"
-response_word = requests.get(url_word)
-response_word.raise_for_status()  # Raise an error if the download fails
-words =pickle.load(io.BytesIO(response_word.content))
+session = requests.Session()
+
+# Get the response (handle Google Drive's security mechanism)
+response = session.get(url_word, stream=True)
+response.raise_for_status()
+
+# Load pickle file from bytes
+words = pickle.load(io.BytesIO(response.content))
 
 def sentiment_prediction(review):
     
