@@ -26,7 +26,7 @@ def ensure_wordnet():
     except LookupError:
         nltk.download("wordnet") 
         
-dataset_id = "1XrRro3FO88oX-Exh1boaCQQLfT1n8r2J"
+dataset_id = "15er1NMJhw6OH4tGVTltOBk0Ms2XuJKZs"
 url_dataset = f"https://drive.google.com/uc?id={dataset_id}"
 response = requests.get(url_dataset)
 response.raise_for_status()  # Raise an error if the download fails
