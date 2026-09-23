@@ -16,6 +16,7 @@ import requests
 import io
 import gdown
 from nltk.data import find
+import argostranslate.translate
 
 
 @st.cache_data  # Cache the function to prevent rechecking
@@ -103,19 +104,11 @@ def sentiment_prediction(review):
       return 'negative'
         
 def translate_text(text, target):
-    url = "https://libretranslate.com/translate"
-
-    data = {
-        "q": text,
-        "source": "auto",
-        "target": target,
-        "format": "text"
-    }
-
-    response = requests.post(url, data=data)
-    response.raise_for_status()
-
-    return response.json()["translatedText"]
+    return argostranslate.translate.translate(
+        text,
+        "hi",
+        target
+    )
   
     
   
