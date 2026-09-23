@@ -100,7 +100,7 @@ def sentiment_prediction(review):
     if prediction >0.5:
       return 'positive'
     else:
-      return 'negative
+      return 'negative'
         
 def translate_text(text, target):
     url = "https://libretranslate.com/translate"
