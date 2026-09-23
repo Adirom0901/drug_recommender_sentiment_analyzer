@@ -102,11 +102,22 @@ def sentiment_prediction(review):
       return 'positive'
     else:
       return 'negative'
+
+def detect_language(text):
+    hindi = sum('\u0900' <= c <= '\u097F' for c in text)
+    english = sum(('a' <= c.lower() <= 'z') for c in text)
+
+    if hindi > english:
+        return "hi"
+    elif english > hindi:
+        return "en"
+    else:
+        return "unknown" 
         
 def translate_text(text, target):
     return argostranslate.translate.translate(
         text,
-        "hi",
+        "en",
         target
     )
   
@@ -130,8 +141,10 @@ def main():
     st.title('multilingual review sentiment analyzer')
     # 
     review = st.text_input('Enter the review in any language')
-    
-    review = translate_text(review, "en")
+
+    pred_lang= detect_language(review)
+    if pred_lang=="hi":
+        review = translate_text(review, "hi")
     st.write(review)
     
     
