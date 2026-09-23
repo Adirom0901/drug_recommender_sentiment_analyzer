@@ -12,7 +12,6 @@ import tensorflow
 nltk.download('wordnet')
 import streamlit as st
 import pandas as pd
-from deep_translator import GoogleTranslator
 import requests
 import io
 import gdown
@@ -101,7 +100,22 @@ def sentiment_prediction(review):
     if prediction >0.5:
       return 'positive'
     else:
-      return 'negative'
+      return 'negative
+        
+def translate_text(text, target):
+    url = "https://libretranslate.com/translate"
+
+    data = {
+        "q": text,
+        "source": "auto",
+        "target": target,
+        "format": "text"
+    }
+
+    response = requests.post(url, data=data)
+    response.raise_for_status()
+
+    return response.json()["translatedText"]
   
     
   
@@ -124,7 +138,7 @@ def main():
     # 
     review = st.text_input('Enter the review in any language')
     
-    review = GoogleTranslator(source='auto', target='en').translate(review)
+    review = translate_text(review, "en")
     st.write(review)
     
     
