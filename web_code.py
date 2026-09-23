@@ -17,6 +17,8 @@ import io
 import gdown
 from nltk.data import find
 import argostranslate.translate
+from deep_translator import GoogleTranslator
+
 
 
 @st.cache_data  # Cache the function to prevent rechecking
@@ -115,12 +117,10 @@ def detect_language(text):
         return "unknown" 
         
 def translate_text(text, target):
-    return argostranslate.translate.translate(
-        text,
-        "hi",
-        target
-    )
-  
+    return GoogleTranslator(
+        source="auto",
+        target=target
+    ).translate(text)
     
   
     
@@ -143,7 +143,7 @@ def main():
     review = st.text_input('Enter the review in any language')
 
     pred_lang= detect_language(review)
-    if pred_lang=="hi":
+    if pred_lang!="en":
         review = translate_text(review, "en")
     st.write(review)
     
