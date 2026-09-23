@@ -124,7 +124,7 @@ def main():
     # 
     review = st.text_input('Enter the review in any language')
     
-    #review = GoogleTranslator(source='auto', target='en').translate(review)
+    review = GoogleTranslator(source='auto', target='en').translate(review)
     st.write(review)
     
     
