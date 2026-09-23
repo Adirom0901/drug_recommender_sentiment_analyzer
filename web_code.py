@@ -117,7 +117,7 @@ def detect_language(text):
 def translate_text(text, target):
     return argostranslate.translate.translate(
         text,
-        "en",
+        "hi",
         target
     )
   
@@ -144,7 +144,7 @@ def main():
 
     pred_lang= detect_language(review)
     if pred_lang=="hi":
-        review = translate_text(review, "hi")
+        review = translate_text(review, "en")
     st.write(review)
     
     
