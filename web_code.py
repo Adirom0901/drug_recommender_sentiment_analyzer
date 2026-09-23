@@ -18,6 +18,7 @@ import io
 import gdown
 from nltk.data import find
 
+
 @st.cache_data  # Cache the function to prevent rechecking
 def ensure_wordnet():
     try:
@@ -25,7 +26,7 @@ def ensure_wordnet():
     except LookupError:
         nltk.download("wordnet") 
         
-dataset_id = "1gt5awJUv00Avu6HKgJI_ERpn8i4rqTgi"
+dataset_id = "1XrRro3FO88oX-Exh1boaCQQLfT1n8r2J"
 url_dataset = f"https://drive.google.com/uc?id={dataset_id}"
 response = requests.get(url_dataset)
 response.raise_for_status()  # Raise an error if the download fails
@@ -49,13 +50,13 @@ def recommend_drugs_for_condition(condition, df=whole_dataset, top_n=5):
     recommended = recommended['drugName'].tolist()
 
     return recommended
-model_id = "1e_iRKYcU5SmF-MmzV67ByqkhHNhd_tCj"
+model_id = "1c-AYmfO2J84Ib-BXitIsqewdnx6hs5ZZ"
 url_model =  f"https://drive.google.com/uc?id={model_id}"
 response_model = requests.get(url_model)
 response_model.raise_for_status()  # Raise an error if the download fails
 loaded_model = pickle.load(io.BytesIO(response_model.content))
 
-word_id = "12wjuUzZupaQC9Ndbqazu3rIbqS82kcpn"
+word_id = "1n_399cvsO0e0zjYD9CxOE70uyyAbuDFl"
 url_word= f"https://drive.google.com/uc?id={word_id}"
 output_file = "glove.pkl"
 @st.cache_data  # Cache the downloaded file
